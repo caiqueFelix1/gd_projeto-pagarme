@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  server:
+    entrypoint: [ "sh", "-c", "java -cp app:app/lib/* br.com.projectpagarme.projectpagarme.ProjectPagarmeApplication"]
+    environment:
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - MYSQL_HOST=mysql-projeto-pagarme-db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DB=rh-db
+      - DATABASE_PORT=3306
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db_projeto-pagarme
+    volumes:
+      - /home/rnxc/workspace/gerador-de-devs/recursos-humanos-do-gd-api/resultado:/resultado
+
+  db_projeto-pagarme:
+    image: 'mysql'
+    container_name: mysql-projeto-pagarme-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data/db:/data/db
