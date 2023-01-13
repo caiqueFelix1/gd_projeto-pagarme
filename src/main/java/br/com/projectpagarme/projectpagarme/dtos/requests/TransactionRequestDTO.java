@@ -27,4 +27,16 @@ public class TransactionRequestDTO {
     private Date dateExpirationCard;
 
     private String cvv;
+
+    @Override
+    public String toString() {
+        return "TransactionRequestDTO{" +
+                "transactionValue=" + transactionValue +
+                ", transactionDescription='" + transactionDescription + '\'' +
+                ", typePayment='" + typePayment + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", cardOwnerName='" + cardOwnerName + '\'' +
+                ", dateExpirationCard=" + dateExpirationCard +
+                '}';
+    }
 }
