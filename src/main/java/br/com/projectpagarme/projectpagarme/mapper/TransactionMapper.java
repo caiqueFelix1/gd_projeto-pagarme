@@ -41,10 +41,10 @@ public class TransactionMapper {
         PaymentEntity paymentEntity = paymentService.create(transactionEntity.getTypePayment());
         transactionEntity.setPayment(paymentEntity);
 
-        String getCardNumber = transactionEntity.getCardNumber();
-        String cardNumberNotSalved = getCardNumber.substring(getCardNumber.length()-4);
-
-        transactionEntity.setCardNumber(cardNumberNotSalved);
+//        String getCardNumber = transactionEntity.getCardNumber();
+//        String cardNumberNotSalved = getCardNumber.substring(getCardNumber.length()-4);
+//
+//        transactionEntity.setCardNumber(cardNumberNotSalved);
 
         if (transactionEntity.getTypePayment() == PaymentMapperEnum.CREDIT_CARD){
             BigDecimal discountCredit = transactionEntity.getTransactionValue().multiply(DISCOUNT_CREDIT);
