@@ -37,4 +37,18 @@ public class TransactionEntity {
 
     @OneToOne
     private PaymentEntity payment;
+
+    @Override
+    public String toString() {
+        return "TransactionEntity{" +
+                "id=" + id +
+                ", transactionValue=" + transactionValue +
+                ", transactionDescription='" + transactionDescription + '\'' +
+                ", typePayment=" + typePayment +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", cardOwnerName='" + cardOwnerName + '\'' +
+                ", dateExpirationCard=" + dateExpirationCard +
+                ", payment=" + payment +
+                '}';
+    }
 }
