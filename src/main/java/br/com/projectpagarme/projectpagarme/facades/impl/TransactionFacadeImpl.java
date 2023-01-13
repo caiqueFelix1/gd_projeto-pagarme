@@ -22,6 +22,10 @@ public class TransactionFacadeImpl implements TransactionFacade {
     @Override
     public TransactionResponseDTO create(TransactionRequestDTO transactionRequestDTO) {
 
+        String getCardNumber = transactionRequestDTO.getCardNumber();
+        String cardNumberNotSalved = getCardNumber.substring(getCardNumber.length()-4);
+
+        transactionRequestDTO.setCardNumber(cardNumberNotSalved);
 
         return transactionMapper.toDto(transactionService.create(transactionMapper.toEntity(transactionRequestDTO)));
     }
