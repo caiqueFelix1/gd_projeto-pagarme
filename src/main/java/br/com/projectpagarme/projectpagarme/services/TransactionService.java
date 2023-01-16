@@ -6,4 +6,5 @@ public interface TransactionService {
 
     TransactionEntity create(TransactionEntity transactionEntity);
 
+    Iterable<TransactionEntity> getAll();
 }
