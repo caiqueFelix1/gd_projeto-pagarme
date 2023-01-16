@@ -1,14 +1,13 @@
 package br.com.projectpagarme.projectpagarme.controllers;
 
-
 import br.com.projectpagarme.projectpagarme.dtos.requests.TransactionRequestDTO;
+import br.com.projectpagarme.projectpagarme.dtos.responses.BalanceResponseDTO;
 import br.com.projectpagarme.projectpagarme.dtos.responses.TransactionResponseDTO;
 import br.com.projectpagarme.projectpagarme.facades.TransactionFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/transactions")
@@ -18,7 +17,14 @@ public class TransactionController {
     private TransactionFacade transactionFacade;
 
     @PostMapping
-    public TransactionResponseDTO create(@RequestBody TransactionRequestDTO transactionRequestDTO){
+    public TransactionResponseDTO create(@Valid @RequestBody TransactionRequestDTO transactionRequestDTO){
+
         return transactionFacade.create(transactionRequestDTO);
+    }
+
+    @GetMapping("/{status}")
+    public BalanceResponseDTO getAll(TransactionRequestDTO transactionRequestDTO){
+
+        return transactionFacade.getBalance();
     }
 }
