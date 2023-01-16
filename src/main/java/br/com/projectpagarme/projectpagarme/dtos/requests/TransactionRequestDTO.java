@@ -1,6 +1,8 @@
 package br.com.projectpagarme.projectpagarme.dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,8 @@ public class TransactionRequestDTO {
 
     private BigDecimal transactionValue;
 
+    @NotBlank(message = "{blank.field}")
+    @Size(min = 3, max = 50, message = "{invalid.size}")
     private String transactionDescription;
 
     private String typePayment;
