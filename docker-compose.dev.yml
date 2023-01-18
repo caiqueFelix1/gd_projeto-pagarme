@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   server:
-    entrypoint: [ "sh", "-c", "java -cp app:app/lib/* br.com.projectpagarme.projectpagarme.ProjectPagarmeApplication"]
+    entrypoint: [ "sh", "-c", "java -cp app:app/lib/* br.com.projectpagarme.ProjectPagarmeApplication"]
     environment:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
       - MYSQL_HOST=mysql-projeto-pagarme-db
@@ -15,7 +15,7 @@ services:
     depends_on:
       - db_projeto-pagarme
     volumes:
-      - /home/rnxc/workspace/gerador-de-devs/recursos-humanos-do-gd-api/resultado:/resultado
+      - /home/rnxc/workspace/gerador-de-devs/projeto-pagarme-do-gd-api/resultado:/resultado
 
   db_projeto-pagarme:
     image: 'mysql'
