@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionResponseDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project-pagarme</a> &gt; <a href="index.source.html" class="el_package">br.com.projectpagarme.projectpagarme.dtos.responses</a> &gt; <span class="el_source">TransactionResponseDTO.java</span></div><h1>TransactionResponseDTO.java</h1><pre class="source lang-java linenums">package br.com.projectpagarme.projectpagarme.dtos.responses;
+
+import br.com.projectpagarme.projectpagarme.enums.PaymentMapperEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
+
+<span class="fc" id="L13">@AllArgsConstructor</span>
+<span class="nc" id="L14">@NoArgsConstructor</span>
+<span class="pc bpc" id="L15" title="51 of 70 branches missed.">@Data</span>
+public class TransactionResponseDTO {
+
+<span class="fc" id="L18">    private Long id;</span>
+
+<span class="fc" id="L20">    private BigDecimal transactionValue;</span>
+
+<span class="fc" id="L22">    private String transactionDescription;</span>
+
+<span class="fc" id="L24">    private PaymentMapperEnum typePayment;</span>
+
+<span class="fc" id="L26">    private String cardNumber;</span>
+
+<span class="fc" id="L28">    private String cardOwnerName;</span>
+
+<span class="fc" id="L30">    private String dateExpirationCard;</span>
+
+<span class="fc" id="L32">    private PaymentResponseDTO payment;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

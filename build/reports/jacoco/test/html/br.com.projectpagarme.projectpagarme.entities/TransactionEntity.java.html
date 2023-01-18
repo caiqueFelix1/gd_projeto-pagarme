@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project-pagarme</a> &gt; <a href="index.source.html" class="el_package">br.com.projectpagarme.projectpagarme.entities</a> &gt; <span class="el_source">TransactionEntity.java</span></div><h1>TransactionEntity.java</h1><pre class="source lang-java linenums">package br.com.projectpagarme.projectpagarme.entities;
+
+import br.com.projectpagarme.projectpagarme.dtos.responses.PaymentResponseDTO;
+import br.com.projectpagarme.projectpagarme.enums.PaymentMapperEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
+
+@Entity
+<span class="pc bpc" id="L16" title="54 of 78 branches missed.">@Data</span>
+<span class="nc" id="L17">@NoArgsConstructor</span>
+<span class="fc" id="L18">@AllArgsConstructor</span>
+public class TransactionEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+<span class="fc" id="L23">    private Long id;</span>
+
+<span class="fc" id="L25">    private BigDecimal transactionValue;</span>
+
+<span class="fc" id="L27">    private String transactionDescription;</span>
+
+<span class="fc" id="L29">    private PaymentMapperEnum typePayment;</span>
+
+<span class="fc" id="L31">    private String cardNumber;</span>
+
+<span class="fc" id="L33">    private String cardOwnerName;</span>
+
+<span class="fc" id="L35">    private String dateExpirationCard;</span>
+
+<span class="fc" id="L37">    private String cvv;</span>
+
+    @OneToOne
+<span class="fc" id="L40">    private PaymentEntity payment;</span>
+
+<span class="fc" id="L42">    public TransactionEntity(BigDecimal transactionValue, String transactionDescription, PaymentMapperEnum typePayment, String cardNumber, String cardOwnerName, String dateExpirationCard, String cvv, PaymentEntity payment) {</span>
+<span class="fc" id="L43">        this.transactionValue = transactionValue;</span>
+<span class="fc" id="L44">        this.transactionDescription = transactionDescription;</span>
+<span class="fc" id="L45">        this.typePayment = typePayment;</span>
+<span class="fc" id="L46">        this.cardNumber = cardNumber;</span>
+<span class="fc" id="L47">        this.cardOwnerName = cardOwnerName;</span>
+<span class="fc" id="L48">        this.dateExpirationCard = dateExpirationCard;</span>
+<span class="fc" id="L49">        this.cvv = cvv;</span>
+<span class="fc" id="L50">        this.payment = payment;</span>
+<span class="fc" id="L51">    }</span>
+
+<span class="nc" id="L53">    public TransactionEntity(BigDecimal mockTransactionValue, String mockDescriptionTransaction, PaymentMapperEnum mockDebitCard, String mockNumberCard, String mockOwnerCard, String mockCvvCard, PaymentEntity itIsReturningAnObjectPaymentEntityInDebitCard) {</span>
+<span class="nc" id="L54">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L58">        return &quot;TransactionEntity{&quot; +</span>
+                &quot;id=&quot; + id +
+                &quot;, transactionValue=&quot; + transactionValue +
+                &quot;, transactionDescription='&quot; + transactionDescription + '\'' +
+                &quot;, typePayment=&quot; + typePayment +
+                &quot;, cardNumber='&quot; + cardNumber + '\'' +
+                &quot;, cardOwnerName='&quot; + cardOwnerName + '\'' +
+                &quot;, dateExpirationCard=&quot; + dateExpirationCard +
+                &quot;, payment=&quot; + payment +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
