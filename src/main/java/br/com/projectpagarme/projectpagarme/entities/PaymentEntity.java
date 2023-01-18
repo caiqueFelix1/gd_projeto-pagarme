@@ -1,12 +1,15 @@
 package br.com.projectpagarme.projectpagarme.entities;
 
-import jakarta.persistence.*;
+import br.com.projectpagarme.projectpagarme.enums.PaymentMapperEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Entity
@@ -33,6 +36,6 @@ public class PaymentEntity {
         this.paymentDate = paymentDate;
     }
 
-    public PaymentEntity(String paid, Date today) {
+    public PaymentEntity(Long mockIdPayment, PaymentMapperEnum mockDebitCard) {
     }
 }
