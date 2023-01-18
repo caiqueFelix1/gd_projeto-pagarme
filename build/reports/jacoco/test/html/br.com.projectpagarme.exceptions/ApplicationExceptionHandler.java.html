@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApplicationExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project-pagarme</a> &gt; <a href="index.source.html" class="el_package">br.com.projectpagarme.exceptions</a> &gt; <span class="el_source">ApplicationExceptionHandler.java</span></div><h1>ApplicationExceptionHandler.java</h1><pre class="source lang-java linenums">package br.com.projectpagarme.exceptions;
+
+import br.com.projectpagarme.exceptions.models.ErrorObject;
+import br.com.projectpagarme.exceptions.models.ErrorResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@ControllerAdvice
+<span class="fc" id="L19">@Slf4j</span>
+<span class="fc" id="L20">public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler{</span>
+
+    @Override
+    protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+<span class="fc" id="L24">        List&lt;ErrorObject&gt; errors = getErrors(ex);</span>
+<span class="fc" id="L25">        ErrorResponse errorResponse = getErrorResponse(status, errors);</span>
+<span class="fc" id="L26">        log.error(&quot;an error occurred in data entry: {}&quot;, errorResponse);</span>
+<span class="fc" id="L27">        return new ResponseEntity&lt;&gt;(errorResponse, status);</span>
+    }
+
+    private ErrorResponse getErrorResponse(HttpStatus status, List&lt;ErrorObject&gt; errors) {
+<span class="fc" id="L31">        return new ErrorResponse(Instant.now().toEpochMilli(),</span>
+<span class="fc" id="L32">                status.value(),</span>
+<span class="fc" id="L33">                status.getReasonPhrase(),</span>
+                &quot;the request has invalid fields&quot;,
+                errors);
+    }
+
+    private List&lt;ErrorObject&gt; getErrors(MethodArgumentNotValidException ex) {
+<span class="fc" id="L39">        return ex.getBindingResult().getFieldErrors().stream()</span>
+<span class="fc" id="L40">                .map(error -&gt; new ErrorObject(error.getDefaultMessage(), error.getField(), error.getRejectedValue()))</span>
+<span class="fc" id="L41">                .collect(Collectors.toList());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project-pagarme</a> &gt; <a href="index.source.html" class="el_package">br.com.projectpagarme.mappers</a> &gt; <span class="el_source">TransactionMapper.java</span></div><h1>TransactionMapper.java</h1><pre class="source lang-java linenums">package br.com.projectpagarme.mappers;
+
+import br.com.projectpagarme.dtos.requests.TransactionRequestDTO;
+import br.com.projectpagarme.dtos.responses.TransactionResponseDTO;
+import br.com.projectpagarme.entities.PaymentEntity;
+import br.com.projectpagarme.entities.TransactionEntity;
+import br.com.projectpagarme.enums.PaymentMapperEnum;
+import br.com.projectpagarme.repositories.PaymentRepository;
+import br.com.projectpagarme.services.PaymentService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
+<span class="nc" id="L22">@RequiredArgsConstructor</span>
+<span class="fc" id="L23">@Slf4j</span>
+public class TransactionMapper {
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private final ModelMapper MAPPER;
+
+<span class="nc" id="L35">    private final BigDecimal DISCOUNT_CREDIT = new BigDecimal(&quot;0.05&quot;);</span>
+
+<span class="nc" id="L37">    private final BigDecimal DISCOUNT_DEBIT = new BigDecimal(&quot;0.03&quot;);</span>
+
+    public TransactionEntity toEntity(TransactionRequestDTO transactionRequestDTO){
+<span class="nc" id="L40">        log.info(&quot;converting request dto {} to entity&quot;, transactionRequestDTO);</span>
+<span class="nc" id="L41">        TransactionEntity transactionEntity = MAPPER.map(transactionRequestDTO, TransactionEntity.class);</span>
+<span class="nc" id="L42">        PaymentEntity paymentEntity = paymentService.create(transactionEntity.getTypePayment());</span>
+<span class="nc" id="L43">        transactionEntity.setPayment(paymentEntity);</span>
+
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (transactionEntity.getTypePayment() == PaymentMapperEnum.CREDIT_CARD){</span>
+<span class="nc" id="L46">            BigDecimal discountCredit = transactionEntity.getTransactionValue().multiply(DISCOUNT_CREDIT);</span>
+<span class="nc" id="L47">            transactionEntity.setTransactionValue(transactionEntity.getTransactionValue().subtract(discountCredit));</span>
+        }
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (transactionEntity.getTypePayment() == PaymentMapperEnum.DEBIT_CARD){</span>
+<span class="nc" id="L51">            BigDecimal discountDebit = transactionEntity.getTransactionValue().multiply(DISCOUNT_DEBIT);</span>
+<span class="nc" id="L52">            transactionEntity.setTransactionValue(transactionEntity.getTransactionValue().subtract(discountDebit));</span>
+        }
+
+<span class="nc" id="L55">        return transactionEntity;</span>
+    }
+
+    public TransactionResponseDTO toDto(TransactionEntity transactionEntity){
+<span class="nc" id="L59">        log.info(&quot;converting entity {} to dto&quot;, transactionEntity);</span>
+<span class="nc" id="L60">        return MAPPER.map(transactionEntity, TransactionResponseDTO.class);</span>
+    }
+
+    public List&lt;TransactionResponseDTO&gt; toListDto(Iterable&lt;TransactionEntity&gt; getAll){
+<span class="nc" id="L64">        log.info(&quot;converting list of entity{} to list of dto&quot;, getAll);</span>
+<span class="nc" id="L65">        List&lt;TransactionEntity&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L66">        getAll.forEach(result::add);</span>
+
+<span class="nc" id="L68">        return result.stream()</span>
+<span class="nc" id="L69">                .map(this::toDto)</span>
+<span class="nc" id="L70">                .collect(Collectors.toList());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
