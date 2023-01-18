@@ -1,5 +1,6 @@
 package br.com.projectpagarme.projectpagarme.dtos.responses;
 
+import br.com.projectpagarme.projectpagarme.enums.PaymentMapperEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
