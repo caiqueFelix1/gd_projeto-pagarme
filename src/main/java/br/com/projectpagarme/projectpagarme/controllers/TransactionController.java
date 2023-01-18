@@ -7,7 +7,9 @@ import br.com.projectpagarme.projectpagarme.facades.TransactionFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/transactions")
@@ -22,9 +24,14 @@ public class TransactionController {
         return transactionFacade.create(transactionRequestDTO);
     }
 
-    @GetMapping("/{status}")
-    public BalanceResponseDTO getAll(TransactionRequestDTO transactionRequestDTO){
+    @GetMapping("/balance")
+    public BalanceResponseDTO getBalance(TransactionRequestDTO transactionRequestDTO){
 
-        return transactionFacade.getBalance();
+        return transactionFacade.getBalance(transactionRequestDTO.getTransactionValue());
+    }
+
+    @GetMapping
+    public List<TransactionResponseDTO> getAll(){
+        return transactionFacade.getAll();
     }
 }
