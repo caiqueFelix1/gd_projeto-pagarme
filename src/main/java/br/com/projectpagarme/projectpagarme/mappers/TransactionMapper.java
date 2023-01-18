@@ -1,4 +1,4 @@
-package br.com.projectpagarme.projectpagarme.mapper;
+package br.com.projectpagarme.projectpagarme.mappers;
 
 import br.com.projectpagarme.projectpagarme.dtos.requests.TransactionRequestDTO;
 import br.com.projectpagarme.projectpagarme.dtos.responses.TransactionResponseDTO;
@@ -33,6 +33,7 @@ public class TransactionMapper {
     private final ModelMapper MAPPER;
 
     private final BigDecimal DISCOUNT_CREDIT = new BigDecimal("0.05");
+
     private final BigDecimal DISCOUNT_DEBIT = new BigDecimal("0.03");
 
     public TransactionEntity toEntity(TransactionRequestDTO transactionRequestDTO){
