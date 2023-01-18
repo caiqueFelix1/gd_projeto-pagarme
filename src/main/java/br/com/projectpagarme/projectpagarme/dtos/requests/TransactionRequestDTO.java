@@ -1,36 +1,47 @@
 package br.com.projectpagarme.projectpagarme.dtos.requests;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import br.com.projectpagarme.projectpagarme.enums.PaymentMapperEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class TransactionRequestDTO {
 
+    @DecimalMin(value = "1", inclusive = false)
+    @DecimalMax(value="99999.99", inclusive = false)
     private BigDecimal transactionValue;
 
     @NotBlank(message = "{blank.field}")
     @Size(min = 3, max = 50, message = "{invalid.size}")
     private String transactionDescription;
 
-    private String typePayment;
+    @NotNull(message = "{null.field}")
+    private PaymentMapperEnum typePayment;
 
+    @NotBlank(message = "{blank.field}")
+    @Size(min = 16, max = 19, message = "{invalid.size}")
     private String cardNumber;
 
+    @NotBlank(message = "{blank.field}")
+    @Size(min = 3, max = 55, message = "{invalid.size}")
     private String cardOwnerName;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    private Date dateExpirationCard;
+    @NotBlank(message = "{blank.field}")
+    @Size(min = 5, message = "{invalid.size.below.the.minimum}")
+    @Size(max = 5, message = "{invalid.size.above.the.maximum}")
+    private String dateExpirationCard;
 
+    @NotBlank(message = "{blank.field}")
+    @Size(min = 3, message = "{invalid.size.below.the.minimum}")
+    @Size(max = 3, message = "{invalid.size.above.the.maximum}")
     private String cvv;
+
 
     @Override
     public String toString() {
