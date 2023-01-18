@@ -3,7 +3,7 @@ version: '3.7'
 services:
   server:
     build: .
-    container_name: recursos-humanos-do-gd
+    container_name: projeto-pagarme-do-gd
     volumes:
       - ./tmp:/app/tmp
       - ./log:/app/log
